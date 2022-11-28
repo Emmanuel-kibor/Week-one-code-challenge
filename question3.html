@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question 3</title>
+</head>
+<body>
+<div>
+    <p>
+        Write a program whose major task is to calculate an individual's Net Salary by getting the inputs of basic
+        salary and benefits.
+        Calculate the payee (i.e Tax), NHIF Deductions, NSSF Deductions, gross salary and net salary
+    </p>
+</div>
+
+<div>
+    <label>Answer </label> <br/> <br/>
+    <div>
+        <label>Employee Basic Pay </label>
+        <input id="basic-pay-input" placeholder="Enter your gross pay" type="number"/>
+    </div>
+    <br/>
+    <div>
+        <label>Employee Total Benefits</label>
+        <input id="benefits-pay-input" placeholder="Enter your gross pay"
+               type="number"/>
+    </div>
+
+    <br/>
+    <button id="btn-calc-net-salary">Calculate Net Salary</button>
+    <br/>
+    <br/>
+
+    <div>
+        <label id="lbl-taxable-income">Your total taxable income is </label>
+    </div>
+    <br/>
+    <div>
+        <label id="lbl-paye-deductions">Your P.A.Y.E deductions are </label>
+    </div>
+    <div>
+        <label id="lbl-total-deductions">Your total deductions are </label>
+    </div>
+    <br/>
+    <div>
+        <label id="lbl-net-salary">Your net salary is: </label>
+    </div>
+    <br/>
+</div>
+
+</body>
+<script>
+    window.onload = function () {
+
+        //Buttons
+        let btnCalcSalary = document.getElementById('btn-calc-net-salary');
+
+        // Inputs
+        let basicPayInput = document.getElementById('basic-pay-input');
+        let benefitsPayInput = document.getElementById('benefits-pay-input');
+
+        // Labels
+        let totalPayLabel = document.getElementById('lbl-taxable-income');
+        let payeDeductionsLabel = document.getElementById('lbl-paye-deductions');
+        let totalDeductionsLabel = document.getElementById('lbl-total-deductions');
+        let netSalaryLabel = document.getElementById('lbl-net-salary');
+
+        totalPayLabel.style.display = 'none';
+        payeDeductionsLabel.style.display = 'none';
+        totalDeductionsLabel.style.display = 'none';
+        netSalaryLabel.style.display = 'none';
+
+        // Set button click listener
+        btnCalcSalary.onclick = function () {
+
+            let basicPay = eval(basicPayInput.value);
+            let benefitsPay = eval(benefitsPayInput.value);
+
+            let totalPay = basicPay + benefitsPay;
+            console.log(totalPay);
+            if (totalPay === 0) {
+                totalPayLabel.innerHTML = 'Sum of Basic pay and Benefits has to be greater than zero';
+                totalPayLabel.style.display = 'block';
+                totalPayLabel.style.color = 'red';
+                return;
+            }
+
+            totalPayLabel.style.color = 'black';
+            totalPayLabel.style.display = 'block';
+            payeDeductionsLabel.style.display = 'block';
+            totalDeductionsLabel.style.display = 'block';
+            netSalaryLabel.style.display = 'block';
+
+            let nhif = 1500;
+            let nssf = 1000;
+            let incomeTax = totalPay * 0.3;
+
+            let totalDeductions = incomeTax + nssf + nhif;
+            let netSalary = totalPay - totalDeductions;
+
+
+            totalPayLabel.innerHTML = 'Your total gross pay is KES. ' + totalPay;
+            payeDeductionsLabel.innerHTML = 'Your P.A.Y.E deductions are KES. ' + incomeTax;
+            totalDeductionsLabel.innerHTML = 'Your NHIF deduction is ' + nhif
+                + '<br >Your NSSF deduction is ' + nssf
+                + '<br />Your total deductions are KES. ' + totalDeductions;
+            netSalaryLabel.innerHTML = 'Your net salary is KES. ' + netSalary;
+
+        }
+    }
+</script>
+</html>
