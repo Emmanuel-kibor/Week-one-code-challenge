@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Grade Calculator</title>
+</head>
+<body>
+<div>
+    <p>
+        Write that prompts the user to input student marks. The input should be between 0 and 100. Then output the
+        correct grade:
+    </p>
+    
+    <ul>
+        <li>
+            A > 79
+        </li>
+        <li>
+            B - 60 to 79
+        </li>
+        <li>
+            C - 59 to 49
+        </li>
+        <li>
+            D - 40 to 49
+        </li>
+        <li>
+            E - less than 40
+        </li>
+    </ul>
+
+
+</div>
+
+<div>
+    <label>Answer </label>
+    <br/>
+    <br/>
+    <input id="marks-input" placeholder="Enter student marks" type="number"/>
+    <button id="btn-grade-calc">Calculate Grade</button>
+    <br/>
+    <br/>
+    <label style="color: red" id="error-label"></label>
+    <br/>
+    <br/>
+    <label id="label-marks-answer">The student with marks <span id="spn-student-marks"></span> has a grade of <span
+            id="spn-student-grade"></span></label>
+</div>
+
+</body>
+<script>
+    window.onload = function () {
+
+        let lblStudentMarksAnswer = document.getElementById('label-marks-answer');
+        lblStudentMarksAnswer.style.display = 'none';
+
+        let errorLabel = document.getElementById('error-label');
+        errorLabel.style.display = 'none';
+
+        let calcGradeBtn = document.getElementById('btn-grade-calc');
+        calcGradeBtn.onclick = function () {
+            let studentMarks = document.getElementById('marks-input').value;
+            let spnStudentMarks = document.getElementById('spn-student-marks');
+            let spnStudentGrade = document.getElementById('spn-student-grade');
+
+            let grade = 'N/A';
+
+            let marksRegex = /^[0-9]+$/;
+
+            if (!studentMarks.match(marksRegex)) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = 'Student marks has to be a numeric value';
+                lblStudentMarksAnswer.style.display = 'none';
+                return;
+            }
+
+            if (studentMarks < 0 && studentMarks > 100) {
+                lblStudentMarksAnswer.style.display = 'block';
+                errorLabel.style.display = 'none';
+                errorLabel.innerHTML = 'Student marks ' + studentMarks + ' has to be a number between 0 and 100';
+                return;
+            }
+
+            errorLabel.style.display = 'none';
+            lblStudentMarksAnswer.style.display = 'block';
+
+            if (studentMarks >= 79) {
+                grade = 'A';
+            } else if (studentMarks >= 60 && studentMarks < 79) {
+                grade = 'B';
+            } else if (studentMarks >= 49 && studentMarks <= 59) {
+                grade = 'C';
+            } else if (studentMarks >= 40 && studentMarks < 49) {
+                grade = 'D';
+            } else if (studentMarks < 40 && studentMarks > 0) {
+                grade = 'E';
+            } else {
+                grade = 'N/A';
+            }
+
+            spnStudentMarks.innerHTML = studentMarks;
+            spnStudentGrade.innerHTML = grade;
+
+        }
+    }
+</script>
+</html>

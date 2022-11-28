@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question 2</title>
+</head>
+<body>
+<div>
+    <p>
+        Write a program that takes as input the speed of a car e.g. 80. If the speed is less than 70, it should print
+        "Ok".
+        Otherwise, for every 5km/s above the speed limit (70), it should give the driver one demerit point and print the
+        total number of
+        demerit points.
+    </p>
+</div>
+
+<div>
+    <label>Answer </label>
+    <br/>
+    <br/>
+    <input id="car-speed-input" placeholder="Enter car speed" type="number"/>
+    <button id="btn-speed-calc">Calculate Speed</button>
+    <br/>
+    <br/>
+    <label id="label-speed-answer"></label>
+</div>
+
+</body>
+<script>
+    window.onload = function () {
+
+        let lblCarSpeed = document.getElementById('label-speed-answer');
+        lblCarSpeed.style.display = 'none';
+
+
+        let btnCalcSpeed = document.getElementById('btn-speed-calc');
+        btnCalcSpeed.onclick = function () {
+            let carSpeed = document.getElementById('car-speed-input').value;
+            let demerits = 0;
+
+            let speedRegex = /^[0-9]+$/;
+            lblCarSpeed.style.display = 'block';
+
+            if (!carSpeed.match(speedRegex)) {
+                lblCarSpeed.innerHTML = 'Car speed has to be numeric';
+                lblCarSpeed.style.color = 'magenta';
+                return;
+            }
+
+
+            if (carSpeed < 70) {
+                lblCarSpeed.innerHTML = "Car speed is Ok";
+                lblCarSpeed.style.color = 'green';
+                return;
+            }
+
+            demerits = (carSpeed - 70) / 5;
+
+            lblCarSpeed.innerHTML = "The driver demerit points are " + demerits;
+            lblCarSpeed.style.color = 'red';
+        }
+    }
+</script>
+</html>
